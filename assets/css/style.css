@@ -43,29 +43,28 @@ h2 {
 }
 .current {
     width: 90%;
-    height: 30vh;
-    border: 1px solid var(--dawn4);
+    height: 32vh;
+    border: 1px solid rgba(173, 137, 0, 0.5);
     border-radius: 1vh 0 0 1vh;
-
 }
 .current-header {
-    margin: 2vh;
+    margin: 1vh;
     padding-left: 2vh;
 }
+ul {
+  list-style: none;  
+  line-height: 1.5;
+}
 .current-ul {
-    list-style: none;
     margin-top: 2vh;
     padding-left: 2vh;
-    line-height: 1.5;
     font-weight: 250;
 }
 .forecast-header {
     padding: 2vh 0 2vh 0;
 }
 .future {
-    background-color: var(--dawn);
-    color: var(--dusk3);
-    opacity: 50%;
+    background-color: var(--dawn2);
     overflow-y: auto;
     width: 90vh;
     height: 40vh;
@@ -79,7 +78,14 @@ h2 {
     margin: 1vh;
 }
 .day-header {
-    padding: 1vh;
+    padding-top: 1vh;
+    color: var(--mid);
+    text-align: center;
+}
+.day-ul{
+    list-style: none;
+    margin-left: -3vh;
+    line-height: 2;
 }
 button{
     border: 1px solid #ffffff;
@@ -93,7 +99,7 @@ button{
     background-color: var(--dusk2);
 }
 .pastcity-btn {
-    background-color: var(--mid);
+    background-color: var(--dawn);
 }
 .uvi-good {
     background-color: #36af77;
@@ -108,4 +114,7 @@ button{
     padding: .25vh .5vh;
     border-radius: 1vh;
     font-size: smaller;
+}
+.day-icon {
+    margin-left: 30%;
 }
