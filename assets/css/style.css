@@ -1,0 +1,111 @@
+/* palette */
+:root{
+    --dawn: #B76935;
+    --dawn2: #A56336;
+    --dawn3: #935E38;
+    --dawn4: #815839;
+    --mid: #6F523B;
+    --dusk4: #5C4D3C;
+    --dusk3: #38413F;
+   --dusk2: #38413F;
+    --dusk: #143642;
+
+}
+* {
+    margin: 0;
+    color: var(--dusk);
+}
+header {
+    background-color: #346491;
+    background-image: linear-gradient(to right, var(--dusk),var(--dusk2), var(--dusk3), var(--dusk4), var(--mid), var(--dawn4), var(--dawn3), var(--dawn2), var(--dawn));
+    border-radius: 2vh;
+    height: 9vh;
+    width: 95%;
+    padding: 1vh;
+    margin: 2vh;
+ 
+}
+.headerText {
+    color: #ffffff;
+    align-items: center;
+    text-align: center;
+    font-family: 'helvetica', sans-serif;
+}
+h2 {
+    font-size: 3vh;
+    color: var(--dusk3);
+}
+.main-container {
+    padding: 2vh;
+}
+.sidebar-top {
+    border-bottom: 1px solid var(--dawn);
+}
+.current {
+    width: 90%;
+    height: 30vh;
+    border: 1px solid var(--dawn4);
+    border-radius: 1vh 0 0 1vh;
+
+}
+.current-header {
+    margin: 2vh;
+    padding-left: 2vh;
+}
+.current-ul {
+    list-style: none;
+    margin-top: 2vh;
+    padding-left: 2vh;
+    line-height: 1.5;
+    font-weight: 250;
+}
+.forecast-header {
+    padding: 2vh 0 2vh 0;
+}
+.future {
+    background-color: var(--dawn);
+    color: var(--dusk3);
+    opacity: 50%;
+    overflow-y: auto;
+    width: 90vh;
+    height: 40vh;
+    white-space: nowrap;
+    
+}
+.day {
+    display: inline-block;
+    width: 25vh;
+    height: 35vh;
+    margin: 1vh;
+}
+.day-header {
+    padding: 1vh;
+}
+button{
+    border: 1px solid #ffffff;
+    border-radius: 1vh;
+    color: #ffffff; 
+    padding: .5vh;   
+    margin-top: 3vh;
+}
+.search-btn {
+    margin-bottom: 2vh;
+    background-color: var(--dusk2);
+}
+.pastcity-btn {
+    background-color: var(--mid);
+}
+.uvi-good {
+    background-color: #36af77;
+    color: #ffffff;
+    padding: .25vh .5vh;
+    border-radius: 1vh;
+    font-size: smaller;
+}
+.uvi-bad {
+    background-color: #b45110;
+    color: #ffffff;
+    padding: .25vh .5vh;
+    border-radius: 1vh;
+    font-size: smaller;
+}
