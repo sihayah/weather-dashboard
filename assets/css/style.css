@@ -109,6 +109,13 @@ button{
     border-radius: 1vh;
     font-size: smaller;
 }
+.uvi-mod {
+    background-color: #d6c356;
+    color: #ffffff;
+    padding: .25vh .5vh;
+    border-radius: 1vh;
+    font-size: smaller;
+}
 .uvi-bad {
     background-color: #b45110;
     color: #ffffff;

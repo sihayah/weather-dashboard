@@ -121,6 +121,8 @@ generateCurrentDay = (data, city) => {
     var currentUv = $("<li>").text("UV Index: ").append(uvSpan)
     if (uv<2.01) {
         $(uvSpan).addClass("uvi-good")
+    } else if (uv<7){
+        $(uvSpan).addClass("uvi-mod")
     } else {
         $(uvSpan).addClass("uvi-bad")
     }
