@@ -37,7 +37,7 @@ h2 {
     color: var(--dusk3);
 }
 .main-container {
-    padding: 2vh;
+    padding: 3vh;
 }
 .sidebar-top {
     border-bottom: 1px solid var(--dawn);

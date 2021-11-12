@@ -1,65 +1,86 @@
 var searchHeader = $("<h2>").text("Search for a City:").addClass("searchHeader")
-var cityInput = $("<input>").addClass("w-100");
+var cityInput = $("<input>").attr("type", "text").addClass("w-100");
 var searchBtn= $("<button>").text("Search").attr("type", "submit").addClass("search-btn w-100");
 var sidebarTop= $("<div>").addClass("sidebar-top").append(searchHeader, cityInput, searchBtn);
-var sidebar = $("<div>").addClass("column col-4 sidebar").append(sidebarTop)
+var sidebarBottom= $("<div>")
+var sidebar = $("<div>").addClass("column col-4 sidebar").append(sidebarTop).append(sidebarBottom)
 let days= [1, 2, 3, 4, 5];
-let city = "Honolulu"
+let myCity = "Jakarta"
+let city
 let cities = []
-// localStorage.getItem(searchHistory)
-// if (searchHistory != ""){
-//     cities= searchHistory
-//     console.log(cities)
-// }
 
+    // for each day in forecast create a card listing date and weather info
+generateForecast = (data) => {
+    for (var i=0; i<days.length; i++) {
+        var dayIcon = $("<i>").addClass("day-icon")
+        var dayWeather = data.daily[i].weather[0].main
+        updateIcons(dayIcon, dayWeather)
+        var kelvinTemp = data.daily[i].temp.day
+        var tempDaily = (1.8*(kelvinTemp -273)+32).toFixed(2)
+        var windDaily = data.daily[i].wind_speed
+        var humidityDaily = data.daily[i].humidity
+        var dayHeader = $("<h2>").addClass("day-header").text("(" +moment().add(i+1, 'days').format('L')+")")
+        var dayTemp = $("<li>").text("Temp: "+tempDaily+"\u00B0"+"F")
+        var dayWind = $("<li>").text("Wind: "+windDaily+" MPH")
+        var dayHumidity = $("<li>").text("Humidity: "+humidityDaily+"%")
+        var dayUl = $("<ul>").addClass("day-ul").append(dayTemp, dayWind, dayHumidity)
+        var day = $("<div>").addClass("card day").append(dayHeader, dayIcon, dayUl)
+        $(future).append(day)
+    }
+}
 // fetch city to get lat and lon
 findForecast = (city) => {
-var cityApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=040415255db151a197c9c6d3e8634198"
-fetch(cityApiUrl).then(function(response){
-    if(response.ok) {
-        response.json().then(function(data){
-            var lat = (data[0].lat)
-            var lon = (data[0].lon)
+    var cityApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=040415255db151a197c9c6d3e8634198"
+    fetch(cityApiUrl).then(function(response){
+        if(response.ok) {
+            response.json().then(function(data){
+                var lat = (data[0].lat)
+                var lon = (data[0].lon)
 
-            // fetch current forecast
-            var weatherApiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=alerts,minutely&appid=040415255db151a197c9c6d3e8634198";
-        
-            fetch(weatherApiUrl).then(function(response){
-            if(response.ok) {
-                response.json().then(function(data) {
-                    generateCurrentDay(data)
-
-                    // for each day in forecast create a card listing date and weather info
-                    for (var i=0; i<days.length; i++) {
-                        var dayIcon = $("<i>").addClass("day-icon")
-                        var dayWeather = data.daily[i].weather[0].main
-                        updateIcons(dayIcon, dayWeather)
-                        var kelvinTemp = data.daily[i].temp.day
-                        var tempDaily = (1.8*(kelvinTemp -273)+32).toFixed(2)
-                        var windDaily = data.daily[i].wind_speed
-                        var humidityDaily = data.daily[i].humidity
-                        var dayHeader = $("<h2>").addClass("day-header").text("(" +moment().add(i+1, 'days').format('L')+")")
-                        var dayTemp = $("<li>").text("Temp: "+tempDaily+"\u00B0"+"F")
-                        var dayWind = $("<li>").text("Wind: "+windDaily+" MPH")
-                        var dayHumidity = $("<li>").text("Humidity: "+humidityDaily+"%")
-                        var dayUl = $("<ul>").addClass("day-ul").append(dayTemp, dayWind, dayHumidity)
-                        var day = $("<div>").addClass("card day").append(dayHeader, dayIcon, dayUl)
-                        $(future).append(day)
-                    }
-                })
-            } else {
-                $(conditionsContainer).text("information not available")
-            }
-        })
-        })
-    }
-})
+                // fetch current forecast
+                var weatherApiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="+lat+"&lon="+lon+"&exclude=alerts,minutely&appid=040415255db151a197c9c6d3e8634198";
+            
+                fetch(weatherApiUrl).then(function(response){
+                if(response.ok) {
+                    response.json().then(function(data) {
+                        generateCurrentDay(data, city)
+                        generateForecast(data)
+                    })
+                } else {
+                    $(conditionsContainer).text("information not available")
+                }
+            })
+            })
+        }
+    })
 }
-findForecast(city)
+
+// after a city has been searched generate a corresponding button
+generatePastSearchBtn = (city) => {
+    var pastCityBtn = $("<button>").addClass("pastcity-btn w-100").attr("type", "click").text(city);
+    $(sidebarBottom).prepend(pastCityBtn)
+    $(pastCityBtn).on("click", function (event){
+        pastButtonSubmitHandler(city)
+    })    
+}
+
+// get search history form local storage, parese, and set equal to cities arr
+searchHistory = JSON.parse(localStorage.getItem("searchHistory"))
+if (searchHistory){
+    cities= searchHistory
+    for (var i=0; i<cities.length; i++){
+        var oldCity = cities[i]
+        generatePastSearchBtn(oldCity)
+    }
+}
+
+
+findForecast(myCity)
 
 var forecastHeader =$("<h2>").text("5-day Forecast:").addClass("forecast-header")
 var future = $("<div>").addClass("future");
-var conditionsContainer = $("<div>").addClass("flex-column col-8 conditions-container").append(forecastHeader, future);
+var currentContainer = $("<div>")
+var conditionsContainer = $("<div>").addClass("flex-column col-8 conditions-container").append(currentContainer, forecastHeader, future);
 var headerText = $("<h1>").addClass("headerText").text("Weather Dashboard");
 var header = $("header").addClass("header");
 $("header").append(headerText);
@@ -88,7 +109,7 @@ updateIcons = (icon, weather) => {
 }
 
 // generate div holding city name, date, and weather conditons for current day
-generateCurrentDay = (data) => {
+generateCurrentDay = (data, city) => {
     var temp = (1.8*(data.current.temp -273)+32).toFixed(2)
     var humidity = data.current.humidity
     var wind = data.current.wind_speed
@@ -108,40 +129,39 @@ generateCurrentDay = (data) => {
     var weather= data.current.weather[0].main
     updateIcons(icon, weather)
     var currentHeader = $("<h2>").addClass("current-header").text(city + " (" +moment().format('L')+") ").append(icon)
-    .append(currentHeader).append(currentUl);
-    (currentHeader).append(currentUl);
-    var currentDiv = $("<div>").addClass("current border-right-0").append(currentHeader, currentUl)
-    $(conditionsContainer).prepend(currentDiv)
+   var currentDiv = $("<div>").addClass("current border-right-0").append(currentHeader, currentUl)
+    $(currentContainer).prepend(currentDiv)
+    // debugger;
     $(searchBtn).on("click", function (event){
         buttonSubmitHandler(currentDiv)
         
     })
 }
 
-// after a city has been search generate a corresponding button
-generatePastSearchBtn = (city) => {
-    var pastCityBtn = $("<button>").addClass("pastcity-btn w-100").attr("type", "click").text(city);
-    $(sidebar).append(pastCityBtn)
-    $(pastCityBtn).on("submit", function (event){
-        buttonSumbitHandler()
-    })
-    
-}
+
 // on button click replace current conditons for previous city with current conditon for new city
 //set new city input to local storage and call generatePastSearchBtn()
-buttonSubmitHandler = (currentDiv, city) => {
-      city = cityInput[0].value
-      if (city) {
-
+buttonSubmitHandler = (city) => {
+        if(city){console.log(city)}
+      var newCity = cityInput[0].value
+      if (newCity) {
         // setCity(city)  
-        $(currentDiv).remove()  
-        findForecast(city);
-        generatePastSearchBtn(city)
-        cities.push(city)
+        $(currentContainer).html("")  
+        $(future).html("")
+        findForecast(newCity);
+        generatePastSearchBtn(newCity)
+        cities.push(newCity)
         console.log(cities)
-        localStorage.setItem("searchHistory", cities)
+        localStorage.setItem("searchHistory", JSON.stringify(cities))
         cityInput[0].value = "";
-    } else {
-        alert("Please enter a valid city");
-    }  
+    }
+}
+pastButtonSubmitHandler = (city) => {
+  var newCity = city
+  if (newCity) {
+    // setCity(city)  
+    $(currentContainer).html("")  
+    $(future).html("")
+    findForecast(newCity);
+}
 }
