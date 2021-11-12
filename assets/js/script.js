@@ -6,11 +6,11 @@ var sidebar = $("<div>").addClass("column col-4 sidebar").append(sidebarTop)
 let days= [1, 2, 3, 4, 5];
 let city = "Honolulu"
 let cities = []
-localStorage.getItem(searchHistory)
-if (searchHistory != ""){
-    cities= searchHistory
-    console.log(cities)
-}
+// localStorage.getItem(searchHistory)
+// if (searchHistory != ""){
+//     cities= searchHistory
+//     console.log(cities)
+// }
 
 // fetch city to get lat and lon
 findForecast = (city) => {
