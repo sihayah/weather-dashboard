@@ -15,6 +15,7 @@
     margin: 0;
     color: var(--dusk);
 }
+
 header {
     background-color: #346491;
     background-image: linear-gradient(to right, var(--dusk),var(--dusk2), var(--dusk3), var(--dusk4), var(--mid), var(--dawn4), var(--dawn3), var(--dawn2), var(--dawn));

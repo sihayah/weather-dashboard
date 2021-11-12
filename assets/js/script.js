@@ -1,13 +1,13 @@
 var searchHeader = $("<h2>").text("Search for a City:").addClass("searchHeader")
 var cityInput = $("<input>").addClass("w-100");
-var searchBtn= $("<button>").text("Search").addClass("search-btn w-100");
-var pastCityBtn = $("<button>").addClass("pastcity-btn w-100").text("cityname");
+var searchBtn= $("<button>").text("Search").attr("type", "submit").addClass("search-btn w-100");
 var sidebarTop= $("<div>").addClass("sidebar-top").append(searchHeader, cityInput, searchBtn);
-var sidebar = $("<div>").addClass("column col-4").append(sidebarTop, pastCityBtn)
+var sidebar = $("<div>").addClass("column col-4 sidebar").append(sidebarTop)
 let days= [1, 2, 3, 4, 5];
+let city = "Honolulu"
 
 // fetch city to get lat and lon
-var city = "Bangkok"
+findForecast = (city) => {
 var cityApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=040415255db151a197c9c6d3e8634198"
 fetch(cityApiUrl).then(function(response){
     if(response.ok) {
@@ -47,7 +47,8 @@ fetch(cityApiUrl).then(function(response){
         })
     }
 })
-
+}
+findForecast(city)
 var forecastHeader =$("<h2>").text("5-day Forecast:").addClass("forecast-header")
 var future = $("<div>").addClass("future");
 var conditionsContainer = $("<div>").addClass("flex-column col-8 conditions-container").append(forecastHeader, future);
@@ -96,10 +97,45 @@ generateCurrentDay = (data) => {
     var icon = $("<i>")
 // data.current.weather.main
     var weather= data.current.weather[0].main
-    console.log(data.current.weather[0].main)
     updateIcons(icon, weather)
-    var currentHeader = $("<h2>").addClass("current-header").text(city + "(" +moment().format('L')+") ").append(icon)
-    var current = $("<div>").addClass("current border-right-0").append(currentHeader).append(currentUl);
+    var currentHeader = $("<h2>").addClass("current-header").text(city + " (" +moment().format('L')+") ").append(icon)
+    .append(currentHeader).append(currentUl);
     (currentHeader).append(currentUl);
-    $(conditionsContainer).prepend(current)
+    var currentDiv = $("<div>").addClass("current border-right-0").append(currentHeader, currentUl)
+    $(conditionsContainer).prepend(currentDiv)
+    $(searchBtn).on("click", function (event){
+        buttonSubmitHandler(currentDiv)
+        
+    })
 }
+
+let pastCitiesArr = []
+let pastCitiesObj = {}
+
+generatePastSearchBtn = (city) => {
+    var pastCityBtn = $("<button>").addClass("pastcity-btn w-100").attr("type", "click").text(city);
+    $(sidebar).append(pastCityBtn)
+    $(pastCityBtn).on("submit", function (event){
+        buttonSumbitHandler()
+    })
+    
+}
+
+buttonSubmitHandler = (currentDiv) => {
+      city = cityInput[0].value
+      if (city) {
+        setCity(city)  
+        $(currentDiv).remove()  
+        findForecast(city);
+        generatePastSearchBtn(city)
+        cityInput[0].value = "";
+    } else {
+        alert("Please enter a valid city");
+    }  
+}
+
+// setCity = (city) => {
+//     pastCitiesArr.push(city)
+//     arr.push[pastCitiesArr]
+//     localStorage.setItem(pastCitiesObj, JSON.stringify(pastCitiesObj))
+// }
