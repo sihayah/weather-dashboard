@@ -30,7 +30,7 @@ generateForecast = (data) => {
 }
 // fetch city to get lat and lon
 findForecast = (city) => {
-    var cityApiUrl = "http://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=040415255db151a197c9c6d3e8634198"
+    var cityApiUrl = "https://api.openweathermap.org/geo/1.0/direct?q="+city+"&limit=1&appid=040415255db151a197c9c6d3e8634198"
     fetch(cityApiUrl).then(function(response){
         if(response.ok) {
             response.json().then(function(data){
