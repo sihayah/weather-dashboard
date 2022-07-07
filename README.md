@@ -26,12 +26,10 @@
   
   <br>
 
-
-  
-  <br>
   Live: https://sihayah.github.io/weather-dashboard/
   <br>
   Repo: https://github.com/sihayah/weater-dashboard
+  <br>
   <br>
 
   ## UserStory
