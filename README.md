@@ -11,7 +11,9 @@
   
 
 
-  [Description](#description) *
+  [User Story](#userstory) *
+  [Features](#features) *
+  [Technologies](#technologies) *
   [Prerequisites](#prerequisites)*
   [Installation](#installation) *
   [Usage](#usage) *
@@ -24,15 +26,39 @@
   
   <br>
 
-  ## Description
 
-  Whether doing research for travel or satisfying a curiosity about the current weather in another place in the world, this application allows the user to search by city to retrieve current weather conditions as well as a five day forecast. The weather is displayed with corresponding icons, and the uvi is color-coded to match its intesity. The user's search history is saved in a series of buttons under the search input.
-<br>
   
   <br>
   Live: https://sihayah.github.io/weather-dashboard/
   <br>
   Repo: https://github.com/sihayah/weater-dashboard
+  <br>
+
+  ## UserStory
+
+  AS A traveler
+  I WANT to see the weather outlook for multiple cities
+  SO THAT I can plan a trip accordingly
+
+<br>
+
+  ## Features
+
+  Whether doing research for travel or satisfying a curiosity about the current weather in another place in the world, this application allows the user to search by city to retrieve current weather conditions as well as a five day forecast. The weather is displayed with corresponding icons, and the uvi is color-coded to match its intesity. The user's search history is saved in a series of buttons under the search input.
+
+<br>
+
+  ## Technologies
+  
+  The following techonologies were used in the production of this application:
+
+  * HTML5
+  * CSS3
+  * JavaScript
+  * Node.js
+  * Heroku
+  * MongoDB
+  * IndexedDB
 
 <br>
 
@@ -50,17 +76,16 @@
 
   ## Installation
 
-  Clone the repo locally. Open of the repo in VS Code. 
+ To demo this app in a browser navigate to https://sihayah.github.io/weather-dashboard/.
+
+To demo locally, clone the repo. Navigate to the root of the repo via command line.
+
+Open the index.html from the local repo in a live server.
 
 
   <br>
 
 ## Usage
-
- To demo this app navigate to https://sihayah.github.io/weather-dashboard/.
-
- To view locally, open the index.html from the local repo in a live server.
-
 
   Use the search bar by typing in the name of a city, and tapping the search button.
 
