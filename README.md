@@ -77,7 +77,7 @@
 
  To demo this app in a browser navigate to https://sihayah.github.io/weather-dashboard/.
 
-To demo locally, clone the repo. Navigate to the root of the repo via command line.
+To demo locally, clone the repo. Navigate to the root of the repo.
 
 Open the index.html from the local repo in a live server.
 
